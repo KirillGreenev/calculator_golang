@@ -21,53 +21,43 @@ func main() {
 			case isValidRomanChar(input[0]) && isValidRomanChar(input[2]):
 				num1 := romanValue(input[0])
 				num2 := romanValue(input[2])
-				value, err := calculator(num1, num2, input[1])
-				if err != nil {
-					fmt.Println(err)
-					continue
-				}
+				value := calculator(num1, num2, input[1])
 				fmt.Println(valuesRoman(value))
 				continue
 			case !(isValidRomanChar(input[0]) || isValidRomanChar(input[2])):
 				num1, _ := strconv.Atoi(input[0])
 				num2, _ := strconv.Atoi(input[2])
-				value, err := calculator(num1, num2, input[1])
-				if err != nil {
-					fmt.Println(err)
-					continue
-				}
+				value := calculator(num1, num2, input[1])
 				fmt.Println(value)
 				continue
 			default:
-				fmt.Println("Работать с арабскими и римскими цифрами вместе, я не умею!")
-				continue
+				panic("Работать с арабскими и римскими цифрами вместе, я не умею!")
 			}
 		} else {
-			fmt.Println("Должно быть 2 числа и знак, не забудь пробелы =)!")
-			continue
+			panic("Должно быть 2 числа и знак, не забудь пробелы =)!")
 		}
 
 	}
 }
 
-func calculator(num1 int, num2 int, sign string) (int, error) {
+func calculator(num1 int, num2 int, sign string) int {
 	if !(0 < num1 && num1 < 11) || !(0 < num2 && num2 < 11) {
-		return 0, fmt.Errorf("Числа должны быть в диапозоне от 1 до 10 включительно!")
+		panic("Числа должны быть в диапозоне от 1 до 10 включительно!")
 	}
 	switch sign {
 	case "+":
 		//fmt.Println(num1 + num2)
-		return num1 + num2, nil
+		return num1 + num2
 	case "-":
 		//fmt.Println(num1 - num2)
-		return num1 - num2, nil
+		return num1 - num2
 	case "*":
 		//fmt.Println(num1 * num2)
-		return num1 * num2, nil
+		return num1 * num2
 	case "/":
-		return num1 / num2, nil
+		return num1 / num2
 	default:
-		return 0, fmt.Errorf("Неверная операция!")
+		panic("Неверная операция!")
 	}
 }
 
@@ -104,7 +94,7 @@ func romanValue(chars string) int {
 func valuesRoman(n int) string {
 	result := ""
 	if n < 1 {
-		return "Число может быть только положительным!"
+		panic("Число может быть только положительным!")
 	}
 	for _, numeral := range []struct {
 		value  int
