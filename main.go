@@ -94,7 +94,7 @@ func romanValue(chars string) int {
 func valuesRoman(n int) string {
 	result := ""
 	if n < 1 {
-		panic("Число может быть только положительным!")
+		panic("Число может быть только положительным!!!")
 	}
 	for _, numeral := range []struct {
 		value  int
